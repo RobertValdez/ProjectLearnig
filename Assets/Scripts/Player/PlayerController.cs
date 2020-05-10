@@ -13,7 +13,28 @@ public class PlayerController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKey(KeyCode.LeftArrow))
+
+        float moveX = Input.GetAxis("Horizontal");
+ //    float moveY = Input.GetAxis("Vertical");
+
+        Vector2 move = new Vector2(moveX,0);
+        if (move.x < 0f)
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddForce((move * 105f) * Time.deltaTime);
+            gameObject.GetComponent<Animator>().SetBool("Moving", true);
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+         if (move.x > 0f)
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddForce((move * 105f) * Time.deltaTime);
+            gameObject.GetComponent<Animator>().SetBool("Moving", true);
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+           
+        } 
+
+        Debug.Log(move);
+
+       /*  if (Input.GetKey(KeyCode.LeftArrow))
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100 * Time.deltaTime,0));
             
@@ -21,9 +42,9 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Animator>().SetBool("Moving", true);
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
             //gameObject.transform.Translate(-3f * Time.deltaTime, 0, 0);
-        }
+        } */
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        /* if (Input.GetKey(KeyCode.RightArrow))
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(100 * Time.deltaTime, 0));
 
@@ -33,7 +54,7 @@ public class PlayerController : MonoBehaviour
             //Cambia la postura en la que se dirige el Personaje o Objeto
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
             /*gameObject.transform.Translate(3f * Time.deltaTime, 0, 0);*/
-        }
+      //  } /
 
         if (!Input.GetKey("left") && !Input.GetKey("right"))
         {
